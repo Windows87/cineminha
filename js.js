@@ -4,10 +4,18 @@ setInterval(() => {
     const timeDiff = targetTime - now;
     const secondsDiff = Math.floor(timeDiff / 1000);
 
-    const hours = Math.floor(secondsDiff / 3600);
-    const minutes = Math.floor((secondsDiff % 3600) / 60);
-    const seconds = secondsDiff % 60;
+    let hours = Math.floor(secondsDiff / 3600);
+    let minutes = Math.floor((secondsDiff % 3600) / 60);
+    let seconds = secondsDiff % 60;
 
-    const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    document.querySelector("#time-two").textContent = formattedTime;
+    if (secondsDiff < 0) {
+        hours = Math.abs(hours);
+        minutes = Math.abs(minutes);
+        seconds = Math.abs(seconds);
+        const formattedTime = `-00:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        document.querySelector("#time-two").textContent = formattedTime;
+    } else {
+        const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        document.querySelector("#time-two").textContent = formattedTime;
+    }
 }, 1000);
